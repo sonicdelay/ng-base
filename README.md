@@ -1,27 +1,256 @@
-# NgBase
+# NG-Base
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.8.
+Angular Base with initial setup for local linting, formating, testing and git
+automation
 
-## Development server
+Features:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- ESLint — a tool to report patterns within JavaScript
+- Prettier — An opinionated code formatter
+- Cypress - E2E and component testing framework
+- Husky - Git hooks for Javascript e.g. `Pre-Commit`
+- Lint-staged - Lint files staged by git
+- CommitLint - Verify format of commit messages
 
-## Code scaffolding
+### Article Links
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- [Git config](https://www.git-scm.com/book/en/v2/Customizing-Git-Git-Configuration)
+- [Angular](https://angular.io/guide/setup-local)
+- [JEST](https://github.com/briebug/jest-schematic)
+- [ESLint & Prettier for NG16](https://blog.bitsrc.io/how-ive-set-up-eslint-and-prettier-in-angular-16-and-why-i-did-that-4bfc304284a6)
+  - [ESLint & Prettier & Husky & lint-staged](https://dev.to/shashwatnautiyal/complete-guide-to-eslint-prettier-husky-and-lint-staged-fh9)
+- [Cypress](https://github.com/cypress-io/cypress/tree/develop/npm/cypress-schematic)
+- [CommitLint](https://commitlint.js.org/#/concepts-commit-conventions)
 
-## Build
+The tool chain of this repo can also be setup mannually following the follwoing
+setup
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## GIT
 
-## Running unit tests
+```
+git clone <this repo>
+git config user.name "<user.name>"
+git config user.email "<user.email>"
+git config pull.rebase true
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Angular
 
-## Running end-to-end tests
+```
+npm install -g @angular/cli
+ng new <app>  (--directory ./)
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Add script to `package.json`
 
-## Further help
+```
+"dev": "ng serve --proxy-config proxy.config.json --host=0.0.0.0 --port=<port> --disable-host-check --open",
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Create `proxy.config.json`
+
+```
+{
+  "/api/*": {
+    "target": "http://localhost:<port>",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": false,
+    "pathRewrite": {
+      "^/api": "/api"
+    }
+  }
+}
+```
+
+Ports: e.g. 4210 for frontend and 8421 for backend
+
+Start development with:
+
+```
+npm run dev
+```
+
+## ESLint & Prettier
+
+```
+ng add @angular-eslint/schematics
+npm i -D prettier
+cat .gitignore>.eslintignore
+cat .gitignore>.prettierignore
+```
+
+Create `.prettierrc.json`
+
+```
+{
+  "tabWidth": 2,
+  "useTabs": false,
+  "singleQuote": true,
+  "semi": true,
+  "bracketSpacing": true,
+  "arrowParens": "avoid",
+  "trailingComma": "es5",
+  "bracketSameLine": true,
+  "printWidth": 80,
+  "endOfLine": "auto"
+}
+```
+
+Add the following to `eslintrc.json`
+
+```
+{
+  ...
+  "overrides": [
+    {
+      ...
+      "extends": [
+        ..."plugin:prettier/recommended"
+
+      ],
+      ...
+    },
+    {
+      ...
+      "excludedFiles": ["*inline-template-*.component.html"],
+      "extends": [
+        ...
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        "prettier/prettier": [
+          "error",
+          {
+            "parser": "angular"
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+Add optional script to `package.json`
+
+```
+"lint:fix": "ng lint --fix"
+```
+
+### Connect ESlint and Prettier
+
+```
+npm install prettier-eslint eslint-config-prettier eslint-plugin-prettier --save-dev
+```
+
+Add optional script to `package.json`
+
+```
+"prettier": "npx prettier --write ."
+```
+
+Settings `.vscode/settings.json`.
+
+```
+{
+  ...
+  "[html]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "editor.formatOnSave": false
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "editor.formatOnSave": false
+  }
+  ...
+}
+```
+
+Add Extensions to `.vscode/extensions.json`.
+
+```
+{
+  "recommendations": [
+    ...
+    "dbaeumer.vscode-eslint"
+  ]
+}
+```
+
+## Husky
+
+```
+npx husky-init
+```
+
+## Lint-Staged
+
+```
+npm i -D lint-staged
+```
+
+Create `.lintstagedrc`
+
+```
+{
+  "*.{js, jsx,ts,tsx}": [
+    "eslint --quiet --fix"
+  ],
+  "*.{json,js,ts,jsx,tsx,html}": [
+    "prettier --write --ignore-unknown"
+  ]
+}
+```
+
+Change/Add `.husky/pre-commit`
+
+```
+npm run lint-staged
+...
+```
+
+Add script to `package.json`
+
+```
+"lint-staged": "npx lint-staged"
+```
+
+## CommitLint
+
+```
+npm install -D @commitlint/config-conventional @commitlint/cli
+npx husky add .husky/commit-msg  'npx --no -- commitlint --edit ${1}'
+npm pkg set scripts.commitlint="commitlint --edit"
+```
+
+Create `.commitlint.config.js`
+
+```
+module.exports = {
+  extends: ['@commitlint/config-conventional']
+};
+```
+
+Test:
+
+```
+git commit -m "foo: this should fail"
+```
+
+## Cypress
+
+```
+ng add @cypress/schematic
+```
+
+Change script test in `package.json`
+
+```
+"test": "cypress run --config video=false --component"
+```
