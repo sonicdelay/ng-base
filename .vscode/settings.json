@@ -12,5 +12,9 @@
       "source.fixAll.eslint": true
     },
     "editor.formatOnSave": false
-  }
+  },
+  "deno.enable": false,
+  "deno.lint": false,
+  "deno.unstable": false
+  
 }
