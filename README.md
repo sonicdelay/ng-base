@@ -189,6 +189,12 @@ Add Extensions to `.vscode/extensions.json`.
 npx husky-init
 ```
 
+Change test script in `package.json`
+
+```
+"test": "ng test --watch=false"
+```
+
 ## Lint-Staged
 
 ```
@@ -198,21 +204,14 @@ npm i -D lint-staged
 Create `.lintstagedrc`
 
 ```
-{
-  "*.{js, jsx,ts,tsx}": [
-    "eslint --quiet --fix"
-  ],
-  "*.{json,js,ts,jsx,tsx,html}": [
-    "prettier --write --ignore-unknown"
-  ]
-}
+{ "_.{js, jsx,ts,tsx}": [ "eslint --quiet --fix" ],
+"_.{json,js,ts,jsx,tsx,html}": [ "prettier --write --ignore-unknown" ] }
 ```
 
 Change/Add `.husky/pre-commit`
 
 ```
-npm run lint-staged
-...
+npm run lint-staged ...
 ```
 
 Add script to `package.json`
@@ -224,17 +223,15 @@ Add script to `package.json`
 ## CommitLint
 
 ```
-npm install -D @commitlint/config-conventional @commitlint/cli
-npx husky add .husky/commit-msg  'npx --no -- commitlint --edit ${1}'
-npm pkg set scripts.commitlint="commitlint --edit"
+npm install -D @commitlint/config-conventional @commitlint/cli npx husky add
+.husky/commit-msg 'npx --no -- commitlint --edit ${1}' npm pkg set
+scripts.commitlint="commitlint --edit"
 ```
 
 Create `.commitlint.config.js`
 
 ```
-module.exports = {
-  extends: ['@commitlint/config-conventional']
-};
+module.exports = { extends: ['@commitlint/config-conventional'] };
 ```
 
 Test:
@@ -253,4 +250,7 @@ Change script test in `package.json`
 
 ```
 "test": "cypress run --config video=false --component"
+```
+
+```
 ```
