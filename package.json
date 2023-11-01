@@ -9,6 +9,7 @@
     "test": "ng test  --watch=false",
     "dev": "ng serve --proxy-config proxy.config.json --host=0.0.0.0 --port=4210 --disable-host-check --open",
     "lint": "ng lint",
+    "lint-staged": "npx lint-staged",
     "lint:fix": "ng lint --fix",
     "prettier": "npx prettier --write .",
     "prepare": "husky install"
@@ -49,6 +50,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "lint-staged": "^15.0.2",
     "prettier": "^3.0.3",
     "prettier-eslint": "^16.1.2",
     "typescript": "~5.1.3"
