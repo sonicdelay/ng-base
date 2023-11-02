@@ -7,7 +7,6 @@ Features:
 
 - ESLint — a tool to report patterns within JavaScript
 - Prettier — An opinionated code formatter
-- Cypress - E2E and component testing framework
 - Husky - Git hooks for Javascript e.g. `Pre-Commit`
 - Lint-staged - Lint files staged by git
 - CommitLint - Verify format of commit messages
@@ -16,10 +15,8 @@ Features:
 
 - [Git config](https://www.git-scm.com/book/en/v2/Customizing-Git-Git-Configuration)
 - [Angular](https://angular.io/guide/setup-local)
-- [JEST](https://github.com/briebug/jest-schematic)
 - [ESLint & Prettier for NG16](https://blog.bitsrc.io/how-ive-set-up-eslint-and-prettier-in-angular-16-and-why-i-did-that-4bfc304284a6)
   - [ESLint & Prettier & Husky & lint-staged](https://dev.to/shashwatnautiyal/complete-guide-to-eslint-prettier-husky-and-lint-staged-fh9)
-- [Cypress](https://github.com/cypress-io/cypress/tree/develop/npm/cypress-schematic)
 - [CommitLint](https://commitlint.js.org/#/concepts-commit-conventions)
 
 The tool chain of this repo can also be setup mannually following the follwoing
@@ -223,34 +220,23 @@ Add script to `package.json`
 ## CommitLint
 
 ```
-npm install -D @commitlint/config-conventional @commitlint/cli npx husky add
-.husky/commit-msg 'npx --no -- commitlint --edit ${1}' npm pkg set
-scripts.commitlint="commitlint --edit"
+npm install -D @commitlint/config-conventional @commitlint/cli
+npx husky add .husky/commit-msg 'npx --no -- commitlint --edit ${1}'
+npm pkg set scripts.commitlint="commitlint --edit"
 ```
 
-Create `.commitlint.config.js`
+Create `commitlint.config.js`
 
 ```
-module.exports = { extends: ['@commitlint/config-conventional'] };
+module.exports = {
+  extends: [
+    "@commitlint/config-conventional",
+  ],
+};
 ```
 
 Test:
 
 ```
 git commit -m "foo: this should fail"
-```
-
-## Cypress
-
-```
-ng add @cypress/schematic
-```
-
-Change script test in `package.json`
-
-```
-"test": "cypress run --config video=false --component"
-```
-
-```
 ```

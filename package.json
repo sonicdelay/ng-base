@@ -12,7 +12,8 @@
     "lint-staged": "npx lint-staged",
     "lint:fix": "ng lint --fix",
     "prettier": "npx prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "commitlint": "commitlint --edit"
   },
   "private": true,
   "dependencies": {
@@ -37,6 +38,8 @@
     "@angular-eslint/template-parser": "16.2.0",
     "@angular/cli": "^16.2.8",
     "@angular/compiler-cli": "^16.2.0",
+    "@commitlint/cli": "^18.2.0",
+    "@commitlint/config-conventional": "^18.1.0",
     "@types/jasmine": "~4.3.0",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
