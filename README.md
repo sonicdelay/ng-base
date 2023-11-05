@@ -333,6 +333,18 @@ Settings `.vscode/settings.json`.
 }
 ```
 
+Add Extensions to `.vscode/extensions.json`.
+
+```
+{
+  "recommendations": [
+    ...
+    "kavod-io.vscode-jest-test-adapter",
+    "orta.vscode-jest"
+  ]
+}
+```
+
 if you are facing problems with global assertions conflicting with jest:
 
 ```
