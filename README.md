@@ -10,8 +10,8 @@ Features:
 - Husky - Git hooks for Javascript e.g. `Pre-Commit`
 - Lint-staged - Lint files staged by git
 - CommitLint - Verify format of commit messages
-- JEST - Test framework
 - Cypress - E2E and component testing framework
+- JEST - Test framework
 
 ### Article Links
 
@@ -20,8 +20,8 @@ Features:
 - [ESLint & Prettier for NG16](https://blog.bitsrc.io/how-ive-set-up-eslint-and-prettier-in-angular-16-and-why-i-did-that-4bfc304284a6)
   - [ESLint & Prettier & Husky & lint-staged](https://dev.to/shashwatnautiyal/complete-guide-to-eslint-prettier-husky-and-lint-staged-fh9)
 - [CommitLint](https://commitlint.js.org/#/concepts-commit-conventions)
-- [JEST](https://github.com/briebug/jest-schematic)
 - [Cypress](https://github.com/cypress-io/cypress/tree/develop/npm/cypress-schematic)
+- [JEST](https://github.com/briebug/jest-schematic)
 
 The tool chain of this repo can also be setup mannually following the follwoing
 setup
