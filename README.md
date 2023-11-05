@@ -245,6 +245,33 @@ Test:
 git commit -m "foo: this should fail"
 ```
 
+## Cypress
+
+```
+ng add @cypress/schematic
+```
+
+Change script test in `package.json`
+
+```
+"test:cy": "cypress run --config video=false --component"
+```
+
+Add the following file as first test in `app-compoinent-cy-ts`
+
+```
+import { AppComponent } from './app.component';
+
+describe('AppComponent', () => {
+  it('should render correctly', () => {
+    cy.mount(AppComponent).then(() => {
+      // Assert that the component is rendered correctly
+      cy.get('.content span').should('contain', 'ng-base app is running!');
+    });
+  });
+});
+```
+
 ## JEST
 
 ```
@@ -304,18 +331,6 @@ Settings `.vscode/settings.json`.
   }
   ...
 }
-```
-
-## Cypress
-
-```
-ng add @cypress/schematic
-```
-
-Change script test in `package.json`
-
-```
-"test": "cypress run --config video=false --component"
 ```
 
 if you are facing problems with global assertions conflicting with jest:
