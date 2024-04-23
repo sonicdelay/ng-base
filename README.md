@@ -188,9 +188,10 @@ Add Extensions to `.vscode/extensions.json`.
 
 ```
 npx husky-init
+npx husky add .husky/pre-commit "npm run pre-commit"
 ```
 
-Change test script in `package.json`
+Add script "pre-commit" in `package.json`
 
 ```
 "test": "ng test --watch=false"
