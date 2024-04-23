@@ -15,7 +15,6 @@
     "lint:fix": "ng lint --fix",
     "prettier": "npx prettier --write .",
     "prepare": "husky install",
-    "commitlint": "commitlint --edit",
     "e2e": "ng e2e",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"

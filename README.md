@@ -188,13 +188,9 @@ Add Extensions to `.vscode/extensions.json`.
 
 ```
 npx husky-init
-npx husky add .husky/pre-commit "npm run pre-commit"
-```
-
-Add script "pre-commit" in `package.json`
-
-```
-"test": "ng test --watch=false"
+npx husky add .husky/pre-commit "npm run lint-staged"
+npx husky add .husky/pre-commit "npm run commitlint"
+npx husky add .husky/pre-commit "npm test"
 ```
 
 ## Lint-Staged
@@ -227,7 +223,6 @@ Add script to `package.json`
 ```
 npm install -D @commitlint/config-conventional @commitlint/cli
 npx husky add .husky/commit-msg 'npx --no -- commitlint --edit ${1}'
-npm pkg set scripts.commitlint="commitlint --edit"
 ```
 
 Create `commitlint.config.js`
